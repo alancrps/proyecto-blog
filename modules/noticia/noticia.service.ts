@@ -3,11 +3,11 @@ import { listadoNoticiasDb } from "./noticia.data";
 import { INoticia } from "./noticia.interface";
 import { v4 as uuidv4 } from 'uuid'
 
-let noticiadb = listadoNoticiasDb;
+let noticiasdb = listadoNoticiasDb;
 
 export const obtenerListadoNoticias = (req: Request, res: Response) => {
     try{
-        res.json({message: 'Se cargaron las noticias.', data: { noticiadb}})
+        res.json({message: 'Se cargaron las noticias.', data: { noticiasdb }})
     }
     catch (error){
         res.status(500).json({message: `${error}`})
@@ -23,7 +23,7 @@ export const crearNoticia = (req: Request, res:Response) => {
             contenido: data.contenido,
             fecha: new Date().toLocaleDateString()
         }
-        listadoNoticiasDb.push(nuevaNoticia)
+        noticiasdb.push(nuevaNoticia)
         res.json({message: 'Se creó la noticia.'})
     }
     catch(error){
@@ -38,10 +38,10 @@ export const obtenerNoticiaPorId = (req: Request, res: Response) => {
 
 export const eliminarNoticia = (req:Request, res:Response) => {
     try{
-        noticiadb = listadoNoticiasDb.filter((u) => u.id !== req.params.noticiaId)
+        noticiasdb = listadoNoticiasDb.filter((u) => u.id !== req.params.noticiaId)
         res.json({message: `Se eliminó la noticia`})
     }
     catch(error){
-        res.status(500).json({message: 'No se pudo encontrar la noticia'})
+        res.status(500).json({message: 'No se pudo eliminar la noticia'})
     }
 }
