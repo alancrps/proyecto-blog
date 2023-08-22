@@ -3,10 +3,11 @@ import { listadoNoticiasDb } from "./noticia.data";
 import { INoticia } from "./noticia.interface";
 import { v4 as uuidv4 } from 'uuid'
 
+let noticiadb = listadoNoticiasDb;
 
 export const obtenerListadoNoticias = (req: Request, res: Response) => {
     try{
-        res.json({message: 'Se cargaron las noticias.', data: { listadoNoticiasDb}})
+        res.json({message: 'Se cargaron las noticias.', data: { noticiadb}})
     }
     catch (error){
         res.status(500).json({message: `${error}`})
@@ -37,7 +38,7 @@ export const obtenerNoticiaPorId = (req: Request, res: Response) => {
 
 export const eliminarNoticia = (req:Request, res:Response) => {
     try{
-        // listadoNoticiasDb = listadoNoticiasDb.filter((u) => u.id !== req.params.noticiaId)
+        noticiadb = listadoNoticiasDb.filter((u) => u.id !== req.params.noticiaId)
         res.json({message: `Se eliminó la noticia`})
     }
     catch(error){
